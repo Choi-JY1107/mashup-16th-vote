@@ -1,0 +1,45 @@
+/* 리셋과 문서 전역. 컴포넌트 스타일은 각자의 CSS 파일에 있다. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--gray-050);
+  color: var(--mu-ink);
+  font-family:
+    "Pretendard Variable", Pretendard, -apple-system, blinkmacsystemfont, system-ui,
+    "Apple SD Gothic Neo", sans-serif;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--mu-blue);
+  outline-offset: 2px;
+}
+
+/* 화면에서는 숨기고 스크린리더에만 읽히는 텍스트 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}

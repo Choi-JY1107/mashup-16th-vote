@@ -1,0 +1,255 @@
+/* /vote (항목별 점수 배분) 전용. */
+
+.ballot__stepper {
+  display: flex;
+  gap: var(--space-2);
+  padding: 0;
+  margin: 0 0 var(--space-6);
+  list-style: none;
+}
+
+.ballot__step {
+  flex: 1;
+  height: 4px;
+  background: var(--gray-200);
+  border-radius: 999px;
+}
+
+.ballot__step--active {
+  background: var(--mu-blue);
+}
+
+.ballot__step--done {
+  background: rgb(var(--mu-blue-rgb) / 35%);
+}
+
+.ballot__header {
+  margin-bottom: var(--space-5);
+}
+
+.ballot__progress {
+  margin: 0 0 var(--space-2);
+  color: var(--mu-blue);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.ballot__title {
+  margin: 0 0 var(--space-2);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.ballot__description {
+  margin: 0;
+  color: var(--gray-600);
+  font-size: 14px;
+}
+
+.ballot__budget {
+  position: sticky;
+  top: var(--space-3);
+  z-index: 1;
+  display: flex;
+  gap: var(--space-2);
+  align-items: baseline;
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-5);
+  background: var(--mu-white);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-md);
+}
+
+.ballot__budget--full {
+  border-color: var(--mu-blue);
+}
+
+.ballot__budget--exceeded {
+  background: rgb(var(--mu-coral-rgb) / 8%);
+  border-color: var(--mu-coral);
+}
+
+.ballot__budget-label {
+  color: var(--gray-600);
+  font-size: 13px;
+}
+
+.ballot__budget-value {
+  margin-left: auto;
+  font-size: 22px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ballot__budget-limit {
+  color: var(--gray-400);
+  font-size: 13px;
+}
+
+.score-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: 0;
+  margin: 0 0 var(--space-5);
+  list-style: none;
+}
+
+.score-row {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr auto;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  background: var(--mu-white);
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius-md);
+}
+
+/* 남은 점수가 0인데 더 올리려고 한 경우 */
+.score-row--rejected {
+  border-color: var(--mu-coral);
+  animation: score-row-shake 400ms cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+.score-row__notice {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--mu-coral);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.score-row__team {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.score-row__slider {
+  width: 100%;
+  accent-color: var(--mu-blue);
+}
+
+.score-row__value {
+  width: 64px;
+  padding: var(--space-2);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+}
+
+.score-row__value:focus {
+  border-color: var(--mu-blue);
+  outline: none;
+}
+
+.ballot__error {
+  margin: 0 0 var(--space-4);
+  color: var(--mu-coral);
+  font-size: 14px;
+}
+
+.ballot__nav {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.ballot__button {
+  flex: 1;
+  padding: var(--space-4);
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+}
+
+.ballot__button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.ballot__button--ghost {
+  color: var(--gray-600);
+  background: var(--mu-white);
+  border: 1px solid var(--gray-200);
+}
+
+.ballot__button--primary {
+  flex: 2;
+  color: var(--mu-white);
+  background: var(--mu-blue);
+  border: none;
+}
+
+.ballot-done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ballot-done__mascot {
+  height: auto;
+  margin-bottom: var(--space-4);
+}
+
+.ballot-done__title {
+  margin: 0 0 var(--space-3);
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.ballot-done__text {
+  margin: 0 0 var(--space-5);
+  color: var(--gray-600);
+  font-size: 14px;
+}
+
+.ballot-done__link {
+  padding: var(--space-3) var(--space-5);
+  color: var(--mu-blue);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid rgb(var(--mu-blue-rgb) / 30%);
+  border-radius: var(--radius-md);
+}
+
+@keyframes score-row-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  15%,
+  45%,
+  75% {
+    transform: translateX(-6px);
+  }
+
+  30%,
+  60%,
+  90% {
+    transform: translateX(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .score-row--rejected {
+    animation: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .score-row {
+    grid-template-columns: 1fr auto;
+    row-gap: var(--space-2);
+  }
+
+  .score-row__slider {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+}

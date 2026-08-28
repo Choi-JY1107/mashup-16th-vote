@@ -1,0 +1,16 @@
+/* /live/mock 전용. 실제 화면(/live)과 헷갈리면 안 되므로 표식만 아주 작게 남긴다. */
+
+.mock-tag {
+  position: fixed;
+  right: var(--space-2);
+  bottom: var(--space-2);
+  z-index: 10;
+  padding: 2px var(--space-2);
+  color: var(--mu-white);
+  font-family: ui-monospace, "SF Mono", menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  background: rgb(var(--mu-coral-rgb) / 85%);
+  border-radius: 4px;
+  pointer-events: none;
+}

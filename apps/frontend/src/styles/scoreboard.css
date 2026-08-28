@@ -1,0 +1,283 @@
+/*
+ * 시상식 스코어보드 (RevealBoard.svelte).
+ *
+ * 대회 리졸버 보드를 그대로 옮긴 표다. 프로젝터에 띄우므로 글자를 크게 쓴다.
+ * 아래 세 색은 브랜드 색이 아니라 이 표 전용이므로 tokens.css 에 올리지 않는다.
+ */
+.scoreboard {
+  /* 열린 칸의 초록. 점수가 높든 낮든 농도는 같다 — 칸 색으로 점수를 암시하지 않는다. */
+  --scoreboard-solved: #3f7d3a;
+
+  /*
+   * 앱 / 웹 구분색.
+   * 칸의 초록, 공개 차례의 파랑, 갱신 대기의 코랄과 겹치지 않는 색을 골랐다.
+   * 팀명이 32px 굵은 글씨라서 대비는 큰 글자 기준(3:1)을 넉넉히 넘긴다.
+   */
+  --scoreboard-app: #6d28d9;
+  --scoreboard-web: #0e7490;
+
+  width: 100%;
+}
+
+.scoreboard__empty {
+  padding: var(--space-7) 0;
+  color: var(--gray-400);
+  font-size: 20px;
+  text-align: center;
+}
+
+.scoreboard__table {
+  overflow: hidden;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+}
+
+.scoreboard__head {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr) var(--cell-columns) 148px;
+  gap: 3px;
+  padding: var(--space-3) var(--space-4);
+  background: var(--gray-050);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.scoreboard__head-rank,
+.scoreboard__head-cell,
+.scoreboard__head-total {
+  color: var(--gray-600);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.scoreboard__head-team {
+  padding-left: var(--space-3);
+  color: var(--gray-600);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.scoreboard__list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.scoreboard__row {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr) var(--cell-columns) 148px;
+  gap: 3px;
+  align-items: stretch;
+  padding: var(--space-3) var(--space-4);
+  background: var(--mu-white);
+  border-bottom: 1px solid var(--gray-100);
+  transition: background 240ms ease;
+}
+
+.scoreboard__row:last-child {
+  border-bottom: none;
+}
+
+/* 아직 한 칸도 열리지 않은 팀. 플랫폼 색은 남기고 채도만 낮춘다. */
+.scoreboard__row--waiting {
+  color: var(--gray-400);
+  background: var(--gray-050);
+}
+
+.scoreboard__row--waiting .scoreboard__name,
+.scoreboard__row--waiting .scoreboard__platform {
+  opacity: 0.45;
+}
+
+/* 다음 칸이 열릴 팀. 항상 보드의 맨 아래쪽에 있다. */
+.scoreboard__row--active {
+  background: rgb(var(--mu-blue-rgb) / 7%);
+}
+
+/* 점수는 올라갔는데 아직 순위 갱신을 안 눌렀다. 다음 클릭에 이 행이 움직인다. */
+.scoreboard__row--pending {
+  background: rgb(var(--mu-coral-rgb) / 10%);
+  animation: scoreboard-row-pending 1100ms ease-in-out infinite;
+}
+
+.scoreboard__row--winner {
+  background: linear-gradient(
+    90deg,
+    rgb(var(--mu-blue-rgb) / 16%),
+    rgb(var(--mu-blue-rgb) / 4%)
+  );
+}
+
+.scoreboard__rank {
+  align-self: center;
+  font-size: 30px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.scoreboard__team {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  min-width: 0;
+  padding-left: var(--space-3);
+}
+
+.scoreboard__platform {
+  flex: none;
+  align-self: stretch;
+  width: 8px;
+  margin: var(--space-2) 0;
+  background: var(--scoreboard-app);
+  border-radius: 4px;
+}
+
+.scoreboard__platform--web {
+  background: var(--scoreboard-web);
+}
+
+.scoreboard__name {
+  overflow: hidden;
+  color: var(--scoreboard-app);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.scoreboard__name--web {
+  color: var(--scoreboard-web);
+}
+
+.scoreboard__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+  color: var(--gray-200);
+  font-size: 22px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  background: var(--gray-100);
+  border-radius: 4px;
+}
+
+/* 열린 칸은 전부 같은 초록이다. 점수 크기는 숫자로만 읽는다. */
+.scoreboard__cell--revealed {
+  color: var(--mu-white);
+  background: var(--scoreboard-solved);
+  animation: scoreboard-cell-in 380ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 다음에 열릴 칸. 시선이 여기에 모인다. */
+.scoreboard__cell--next {
+  background: rgb(var(--mu-coral-rgb) / 18%);
+  box-shadow: inset 0 0 0 3px var(--mu-coral);
+  animation: scoreboard-cell-next 1200ms ease-in-out infinite;
+}
+
+.scoreboard__total {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: var(--space-3);
+  font-size: 30px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  animation: scoreboard-total-bump 420ms ease-out;
+}
+
+@keyframes scoreboard-cell-in {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scoreboard-cell-next {
+  0%,
+  100% {
+    box-shadow: inset 0 0 0 3px rgb(var(--mu-coral-rgb) / 40%);
+  }
+
+  50% {
+    box-shadow: inset 0 0 0 3px var(--mu-coral);
+  }
+}
+
+@keyframes scoreboard-row-pending {
+  0%,
+  100% {
+    background: rgb(var(--mu-coral-rgb) / 8%);
+  }
+
+  50% {
+    background: rgb(var(--mu-coral-rgb) / 18%);
+  }
+}
+
+@keyframes scoreboard-total-bump {
+  0% {
+    color: var(--mu-blue);
+    transform: scale(1.24);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scoreboard__cell--revealed,
+  .scoreboard__cell--next,
+  .scoreboard__row--pending,
+  .scoreboard__total {
+    animation: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .scoreboard__head,
+  .scoreboard__row {
+    grid-template-columns: 38px minmax(0, 1fr) var(--cell-columns) 68px;
+    gap: 2px;
+    padding: var(--space-2);
+  }
+
+  .scoreboard__head-rank,
+  .scoreboard__head-cell,
+  .scoreboard__head-total,
+  .scoreboard__head-team {
+    font-size: 10px;
+  }
+
+  .scoreboard__name {
+    font-size: 15px;
+  }
+
+  .scoreboard__platform {
+    width: 4px;
+    margin: var(--space-1) 0;
+  }
+
+  .scoreboard__rank {
+    font-size: 16px;
+  }
+
+  .scoreboard__cell {
+    min-height: 34px;
+    font-size: 12px;
+  }
+
+  .scoreboard__total {
+    font-size: 14px;
+  }
+}

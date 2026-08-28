@@ -1,0 +1,14 @@
+{
+  "name": "mashup-16th-vote",
+  "private": true,
+  "packageManager": "pnpm@9.12.0",
+  "scripts": {
+    "dev": "pnpm --filter @vote/contract build && pnpm --parallel --filter @vote/backend --filter @vote/frontend dev",
+    "dev:backend": "pnpm --filter @vote/backend dev",
+    "dev:frontend": "pnpm --filter @vote/frontend dev",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "lint:css": "pnpm --filter @vote/frontend lint:css"
+  }
+}

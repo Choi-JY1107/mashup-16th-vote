@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.svelte-kit/
+build/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+.claude/
+.vercel
+codes-*.csv
+codes-*.sql
+
+# 통행코드 로컬 발급기. 발급 로직과 평문 코드가 여기 있으므로 절대 올리지 않는다.
+tools/

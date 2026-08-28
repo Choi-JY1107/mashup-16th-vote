@@ -1,0 +1,89 @@
+/* 공통 셸 — 헤더 / 본문 폭 / 푸터. +layout.svelte 전용. */
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.shell__header {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background: var(--mu-white);
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.shell__brand {
+  display: inline-flex;
+  gap: var(--space-3);
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 로고의 두 삼각형을 CSS 로 재현한다 (에셋 요청 1회 절약) */
+.shell__logo {
+  display: block;
+  width: 22px;
+  height: 22px;
+  background:
+    linear-gradient(to bottom right, transparent 49.5%, var(--mu-coral) 50%),
+    linear-gradient(to bottom left, transparent 49.5%, var(--mu-blue) 50%);
+  border-radius: 3px;
+}
+
+.shell__brand-text {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.shell__tagline {
+  color: var(--gray-400);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.shell__main {
+  flex: 1;
+  width: 100%;
+  max-width: 720px;
+  padding: var(--space-6) var(--space-5) var(--space-7);
+  margin: 0 auto;
+}
+
+/* 시상식 화면은 프로젝터에 띄우므로 폭 제한을 걷어낸다. */
+.shell__main--wide {
+  max-width: none;
+  padding: var(--space-4);
+}
+
+.shell__footer {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  color: var(--gray-400);
+  border-top: 1px solid var(--gray-100);
+}
+
+.shell__mascot {
+  height: auto;
+  opacity: 0.9;
+}
+
+.shell__footer-text {
+  margin: 0;
+  font-size: 12px;
+}
+
+@media (max-width: 640px) {
+  .shell__tagline {
+    display: none;
+  }
+}

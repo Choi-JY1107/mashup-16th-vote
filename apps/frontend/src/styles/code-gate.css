@@ -1,0 +1,94 @@
+/* / (통행코드 입력) 전용. */
+
+.code-gate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.code-gate__mascot {
+  height: auto;
+  margin-bottom: var(--space-4);
+}
+
+.code-gate__title {
+  margin: 0 0 var(--space-3);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.code-gate__description {
+  margin: 0 0 var(--space-6);
+  color: var(--gray-600);
+  font-size: 14px;
+}
+
+.code-gate__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 340px;
+}
+
+/* 화면에서는 숨기고 스크린리더에만 읽힌다 */
+.code-gate__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.code-gate__input {
+  width: 100%;
+  padding: var(--space-4);
+  color: var(--mu-ink);
+  font-family: ui-monospace, "SF Mono", menlo, monospace;
+  font-size: 20px;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+  background: var(--mu-white);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  transition: border-color 120ms ease;
+}
+
+.code-gate__input:focus {
+  border-color: var(--mu-blue);
+  outline: none;
+}
+
+.code-gate__input--invalid {
+  border-color: var(--mu-coral);
+}
+
+.code-gate__error {
+  margin: 0;
+  color: var(--mu-coral);
+  font-size: 13px;
+}
+
+.code-gate__submit {
+  padding: var(--space-4);
+  color: var(--mu-white);
+  font-size: 15px;
+  font-weight: 600;
+  background: var(--mu-blue);
+  border: none;
+  border-radius: var(--radius-md);
+  transition: opacity 120ms ease;
+}
+
+.code-gate__submit:disabled {
+  background: var(--gray-200);
+  cursor: not-allowed;
+}
+
+.code-gate__submit:not(:disabled):hover {
+  opacity: 0.9;
+}

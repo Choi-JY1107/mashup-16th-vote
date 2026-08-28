@@ -1,0 +1,139 @@
+/* /admin (사회자 진행) 전용. */
+
+.admin__title {
+  margin: 0 0 var(--space-5);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.admin__field {
+  margin-bottom: var(--space-6);
+}
+
+.admin__label {
+  display: block;
+  margin-bottom: var(--space-2);
+  color: var(--gray-600);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.admin__input {
+  width: 100%;
+  padding: var(--space-3);
+  font-family: ui-monospace, "SF Mono", menlo, monospace;
+  font-size: 14px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+}
+
+.admin__input:focus {
+  border-color: var(--mu-blue);
+  outline: none;
+}
+
+.admin__block {
+  padding: var(--space-5);
+  margin-bottom: var(--space-5);
+  background: var(--mu-white);
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius-md);
+}
+
+.admin__block-title {
+  margin: 0 0 var(--space-2);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.admin__hint {
+  margin: 0 0 var(--space-4);
+  color: var(--gray-600);
+  font-size: 13px;
+}
+
+.admin__confirm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.admin__confirm-text {
+  flex: 1 1 100%;
+  margin: 0;
+  color: var(--mu-coral);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.admin__button {
+  padding: var(--space-3) var(--space-5);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+}
+
+.admin__button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.admin__button--primary {
+  width: 100%;
+  padding: var(--space-4);
+  color: var(--mu-white);
+  font-size: 16px;
+  background: var(--mu-blue);
+  border: none;
+}
+
+.admin__button--danger {
+  color: var(--mu-white);
+  background: var(--mu-coral);
+  border: none;
+}
+
+.admin__button--settle {
+  background: var(--mu-coral);
+}
+
+.admin__button--ghost {
+  color: var(--gray-800);
+  background: var(--mu-white);
+  border: 1px solid var(--gray-200);
+}
+
+.admin__next {
+  margin: 0 0 var(--space-4);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* 다음 클릭이 무엇인지 색으로도 구분한다. 사회자가 문구를 안 읽고도 안다. */
+.admin__next--settle {
+  color: var(--mu-coral);
+}
+
+.admin__next--rank {
+  color: var(--mu-blue);
+}
+
+.admin__message {
+  margin: 0 0 var(--space-3);
+  color: var(--mu-blue);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.admin__error {
+  margin: 0 0 var(--space-3);
+  color: var(--mu-coral);
+  font-size: 14px;
+}
+
+.admin__link {
+  display: inline-block;
+  color: var(--gray-600);
+  font-size: 13px;
+}

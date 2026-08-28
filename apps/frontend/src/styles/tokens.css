@@ -1,0 +1,35 @@
+/*
+ * Mash-Up 브랜드 토큰.
+ * 색은 공식 에셋(매숑이 PNG, 로고 SVG)에서 직접 추출한 값이다.
+ *
+ * `-rgb` 변수는 투명도를 섞어야 하는 곳에서 쓴다. CSS 변수에는 hex 를 담을 수밖에
+ * 없고 hex 로는 알파를 못 만들기 때문에, 채널값을 따로 둔다.
+ *   rgb(var(--mu-blue-rgb) / 7%)
+ */
+:root {
+  --mu-blue: #3c45f4;
+  --mu-blue-rgb: 60 69 244;
+  --mu-coral: #f47b70;
+  --mu-coral-rgb: 244 123 112;
+  --mu-ink: #0b0b0f;
+  --mu-white: #fff;
+
+  --gray-050: #f7f8fb;
+  --gray-100: #eef0f6;
+  --gray-200: #dcdfe8;
+  --gray-400: #9aa0b4;
+  --gray-600: #5b6178;
+  --gray-800: #2a2e3d;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+}
