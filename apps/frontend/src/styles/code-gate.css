@@ -43,28 +43,56 @@
   clip-path: inset(50%);
 }
 
-.code-gate__input {
+/* 테두리를 바깥 상자가 갖는다. 접두어와 입력칸이 한 덩어리로 보여야 한다. */
+.code-gate__field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   padding: var(--space-4);
-  color: var(--mu-ink);
   font-family: ui-monospace, "SF Mono", menlo, monospace;
   font-size: 20px;
   letter-spacing: 0.12em;
-  text-align: center;
-  text-transform: uppercase;
   background: var(--mu-white);
   border: 2px solid var(--gray-200);
   border-radius: var(--radius-md);
   transition: border-color 120ms ease;
 }
 
-.code-gate__input:focus {
+.code-gate__field:focus-within {
   border-color: var(--mu-blue);
+}
+
+.code-gate__field--invalid {
+  border-color: var(--mu-coral);
+}
+
+/* 입력할 수 없는 부분이라는 걸 색으로 구분한다 */
+.code-gate__prefix {
+  flex: none;
+  color: var(--gray-400);
+  user-select: none;
+}
+
+.code-gate__input {
+  /* 6자 + 자간. 남는 폭 없이 딱 맞춰서 접두어와 붙어 보이게 한다. */
+  width: 7ch;
+  padding: 0;
+  color: var(--mu-ink);
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+}
+
+.code-gate__input:focus {
   outline: none;
 }
 
-.code-gate__input--invalid {
-  border-color: var(--mu-coral);
+.code-gate__input::placeholder {
+  color: var(--gray-200);
 }
 
 .code-gate__error {
